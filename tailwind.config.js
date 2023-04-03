@@ -5,8 +5,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        spaceGrotesk: ["var(--font-space-grotesk)"]
+      },
+    },
   },
   plugins: [],
 }
-
