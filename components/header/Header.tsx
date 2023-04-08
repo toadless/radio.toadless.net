@@ -3,13 +3,20 @@ import { faGlobe } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import useWindowSize from "@/hooks/useWindowSize"
+import useGetUser from "@/hooks/useGetUser";
 
 import HeaderItem from "./HeaderItem";
 import HeaderContainer from "./HeaderContainer";
 import HeaderText from "./HeaderText";
+import Loading from "../Loading";
 
 export default function Header() {
   const windowSize = useWindowSize();
+  const { user, loading } = useGetUser();
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <>
@@ -38,7 +45,13 @@ export default function Header() {
               : null}
 
             <HeaderItem items={2} className="justify-center border-l-[1px] w-[100%] border-gray-900">
-              <HeaderText>LOGIN</HeaderText>
+              {user == null ?
+                <HeaderText>LOGIN</HeaderText>
+                :
+                <div>
+                  <p>hi</p>
+                </div>
+              }
             </HeaderItem>
           </HeaderItem>
         </HeaderContainer>

@@ -1,4 +1,3 @@
-import Header from '@/components/header/Header';
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
@@ -17,7 +16,6 @@ config.autoAddCss = false
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${spaceGrotesk.variable} text-white`}>
-      <Header />
       <Component {...pageProps} />
     </main>
   )

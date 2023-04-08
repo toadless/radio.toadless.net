@@ -1,6 +1,9 @@
+import Header from "@/components/header/Header";
+
 export default function Home() {
   return (
     <>
+      <Header />
       <main className="flex justify-center">
         <div className="flex justify-center flex-col h-screen items-center">
           <h1 className="font-space-grotesk pb-6 text-4xl">Under Construction</h1>
