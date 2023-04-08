@@ -48,9 +48,13 @@ export default function Header() {
               {user == null ?
                 <HeaderText>LOGIN</HeaderText>
                 :
-                <div>
-                  <p>hi</p>
-                </div>
+                <HeaderItem items={1} className="justify-between">
+                  <img src={user.avatar} width={60} className="rounded-full cursor-pointer p-2" onClick={() => {
+                    window.location.href = window.location.origin + "/guilds"
+                  }} />
+
+                  <HeaderText className="p-2">LOGOUT</HeaderText>
+                </HeaderItem>
               }
             </HeaderItem>
           </HeaderItem>
