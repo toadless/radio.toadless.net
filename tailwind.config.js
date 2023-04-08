@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        spaceGrotesk: ["var(--font-space-grotesk)"]
+        "space-grotesk": ["var(--font-space-grotesk)"]
       },
     },
   },
