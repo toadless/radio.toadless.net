@@ -30,7 +30,7 @@ export default function Header() {
           </HeaderItem>
           <HeaderItem items={3} className="justify-between">
             {windowSize.width! >= 600 ?
-              <HeaderItem items={2} className="justify-center border-l-[1px] border-gray-900">
+              <HeaderItem items={2} className="justify-center p-5 border-l-[1px] border-gray-900">
                 <FontAwesomeIcon icon={faGithubSquare} className="p-1 cursor-pointer hover:text-violet-400" />
                 <FontAwesomeIcon icon={faDiscord} className="p-1 cursor-pointer hover:text-violet-400" />
                 <FontAwesomeIcon icon={faGlobe} className="p-1 cursor-pointer hover:text-violet-400" />
