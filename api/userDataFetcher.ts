@@ -17,31 +17,39 @@ export type RequestResponse = {
 }
 
 export default async function fetcher(endpoint: string, body: any): Promise<RequestResponse> {
-    if (localStorage.getItem("access_token") == null ||
-        localStorage.getItem("refresh_token") == null) {
-        return {};
-    }
-
-    const response = await fetchData({ endpoint, body });
-
-    // The user has deauthorized Radio
-    // from their account. Redirect to
-    // authorize page
-    if (response.status == 403) {
-        window.location.href = process.env.NEXT_PUBLIC_API_KEY + "/auth/authorize";
-        return {};
-    }
-
-    if (response.status == 401) {
-        if (await refreshUser()) {
-            return fetcher(endpoint, body);
+    try {
+        if (localStorage.getItem("access_token") == null ||
+            localStorage.getItem("refresh_token") == null) {
+            return {};
         }
-    }
 
-    if (response.status != 200) {
+        return await fetchData({ endpoint, body });
+    } catch (error: any) {
+        const response: ResponseInit = error.response;
+
+        if (response == null) {
+            window.location.href = window.location.origin + "/error"
+            return {};
+        }
+
+        // The user has deauthorized Radio
+        // from their account. Redirect to
+        // authorize page
+        if (response.status == 403) {
+            window.location.href = process.env.NEXT_PUBLIC_API_KEY + "/auth/authorize";
+            return {};
+        }
+
+        if (response.status == 401) {
+            if (await refreshUser()) {
+                return fetcher(endpoint, body);
+            }
+
+            window.location.href = process.env.NEXT_PUBLIC_API_KEY + "/auth/authorize";
+            return {};
+        }
+
         window.location.href = window.location.origin + "/error"
         return {};
     }
-
-    return response;
 }
