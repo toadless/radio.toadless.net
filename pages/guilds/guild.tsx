@@ -11,6 +11,7 @@ import useGetGuildConfig from "@/hooks/useGetGuildConfig";
 import useGetGuildRoles from "@/hooks/useGetGuildRoles";
 
 import useMutatePrefix from "@/hooks/mutation/useMutatePrefix";
+import useMutateDJRole from "@/hooks/mutation/useMutateDJRole";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +43,7 @@ export default function Guild() {
                                 console.log(success);
 
                                 setSubmitting(false);
-                            }, 1000)
+                            }, 200)
                         }}>
                         {({ isSubmitting }) => (
                             <Form className="p-2">
@@ -63,13 +64,13 @@ export default function Guild() {
                     <Formik
                         initialValues={{ djRole: guildConfig.config.dj_role }}
                         onSubmit={(values, { setSubmitting }) => {
-                            setTimeout(() => {
-                                const { djRole } = values;
+                            setTimeout(async () => {
+                                const { success } = await useMutateDJRole(router.query.id as string, String(values.djRole));
 
-                                console.log(djRole)
+                                console.log(success)
 
                                 setSubmitting(false);
-                            }, 1000)
+                            }, 200)
                         }}>
                         {({ isSubmitting }) => (
                             <Form className="p-2">
