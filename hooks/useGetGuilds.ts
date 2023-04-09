@@ -18,9 +18,9 @@ export type Guild = {
     icon: string
 }
 
-export default function useGetUser(): GuildsData {
+export default function useGetGuilds(): GuildsData {
     const { data, isLoading } = useSWR(process.env.NEXT_PUBLIC_API_URL + "/users/me/guilds", userDataFetcher)
-    const isReady = useDoesDataExist(data, isLoading);
+    const isReady = useDoesDataExist(data, isLoading, true);
 
     if (!isReady) {
         return { loading: true }

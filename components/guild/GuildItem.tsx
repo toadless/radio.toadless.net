@@ -7,7 +7,9 @@ export default function GuildItem(props: { guild: Guild }) {
                 window.location.href = `${window.location.origin}/guilds/${props.guild.id}`
             }}>
                 <p className="m-5">{props.guild.name}</p>
-                <img src={props.guild.icon} width={60} className="rounded-full cursor-pointer p-2 m-5" />
+                {props.guild.icon.endsWith("null") ? null :
+                    <img src={props.guild.icon} width={60} className="rounded-full cursor-pointer p-2 m-5" />
+                }
             </div>
         </>
     )

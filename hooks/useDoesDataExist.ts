@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 // (user not logged-in). It returns
 // a boolean (isReady) which determines
 // weather or not to render the page
-export default function doesDataExist(data: RequestResponse | undefined, isLoading: boolean): boolean {
+export default function doesDataExist(data: RequestResponse | undefined, isLoading: boolean, redirect: boolean): boolean {
     const [isReady, setReady] = useState(false);
 
     useEffect(() => {
@@ -18,6 +18,7 @@ export default function doesDataExist(data: RequestResponse | undefined, isLoadi
             return;
         }
 
+        if (!redirect) return;
         window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/authorize`;
     }, [isLoading])
 
