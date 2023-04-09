@@ -1,12 +1,27 @@
+import { useRouter } from "next/router"
+import { useEffect } from "react";
+
+import Loading from "@/components/Loading"
+
 export default function Callback() {
-    return (
-      <>
-        <main className="flex justify-center">
-          <div className="flex justify-center flex-col h-screen items-center">
-            <h1 className="font-space-grotesk pb-6 text-4xl">Not Implemented</h1>
-            <img src="/fire.gif" className="w-1/3" />
-          </div>
-        </main>
-      </>
-    )
-  }
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const accessToken = router.query.access_token as string;
+    const refreshToken = router.query.refresh_token as string;
+
+    if (accessToken == null || refreshToken == null) {
+      window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/authorize`
+      return;
+    }
+
+    localStorage.setItem("access_token", accessToken);
+    localStorage.setItem("refresh_token", refreshToken);
+
+    window.location.href = `${window.location.origin}/guilds`
+  }, [router.isReady]);
+
+  return <Loading />
+}

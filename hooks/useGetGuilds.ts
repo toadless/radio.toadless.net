@@ -1,6 +1,7 @@
 import useSWR from "swr"
 
 import userDataFetcher from "@/api/userDataFetcher";
+import useDoesDataExist from "./useDoesDataExist"
 
 export type GuildsData = {
     guilds?: {
@@ -19,6 +20,11 @@ export type Guild = {
 
 export default function useGetUser(): GuildsData {
     const { data, isLoading } = useSWR(process.env.NEXT_PUBLIC_API_URL + "/users/me/guilds", userDataFetcher)
+    const isReady = useDoesDataExist(data, isLoading);
+
+    if (!isReady) {
+        return { loading: true }
+    }
 
     return {
         guilds: {
