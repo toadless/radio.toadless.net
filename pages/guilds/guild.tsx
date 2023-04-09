@@ -10,6 +10,8 @@ import GuildFormItem from "@/components/guild/form/GuildFormItem";
 import useGetGuildConfig from "@/hooks/useGetGuildConfig";
 import useGetGuildRoles from "@/hooks/useGetGuildRoles";
 
+import useMutatePrefix from "@/hooks/mutation/useMutatePrefix";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
@@ -34,10 +36,10 @@ export default function Guild() {
                     <Formik
                         initialValues={{ prefix: guildConfig.config.prefix }}
                         onSubmit={(values, { setSubmitting }) => {
-                            setTimeout(() => { // Wrap inside timeout to give loading spinner effect, so user knows that the data has been mutated
-                                const { prefix } = values;
+                            setTimeout(async () => { // Wrap inside timeout to give loading spinner effect, so user knows that the data has been mutated
+                                const { success } = await useMutatePrefix(router.query.id as string, values.prefix);
 
-                                console.log(prefix)
+                                console.log(success);
 
                                 setSubmitting(false);
                             }, 1000)
@@ -75,7 +77,7 @@ export default function Guild() {
                                     <option value={-1}>None</option>
 
                                     {guildRoles.roles?.map(role => (
-                                        <option value={role.id}>{role.name}</option>
+                                        <option value={role.id} key={role.id}>{role.name}</option>
                                     ))}
                                 </Field>
 
