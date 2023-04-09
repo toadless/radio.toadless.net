@@ -3,7 +3,6 @@ import fetchData from "./fetchData"
 
 export type RequestData = {
     endpoint: string,
-    body: any
 }
 
 export type ResponseData = {
@@ -16,14 +15,14 @@ export type RequestResponse = {
     status?: number
 }
 
-export default async function fetcher(endpoint: string, body: any): Promise<RequestResponse> {
+export default async function fetcher(endpoint: string): Promise<RequestResponse> {
     try {
         if (localStorage.getItem("access_token") == null ||
             localStorage.getItem("refresh_token") == null) {
             return {};
         }
 
-        return await fetchData({ endpoint, body });
+        return await fetchData({ endpoint });
     } catch (error: any) {
         const response: ResponseInit = error.response;
 
@@ -41,7 +40,7 @@ export default async function fetcher(endpoint: string, body: any): Promise<Requ
 
         if (response.status == 401) {
             if (await refreshUser()) {
-                return fetcher(endpoint, body);
+                return fetcher(endpoint);
             }
 
             window.location.href = process.env.NEXT_PUBLIC_API_KEY + "/auth/authorize";
