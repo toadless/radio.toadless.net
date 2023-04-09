@@ -1,5 +1,5 @@
 import { faDiscord, faGithubSquare } from "@fortawesome/free-brands-svg-icons"
-import { faGlobe } from "@fortawesome/free-solid-svg-icons"
+import { faGlobe, faRightFromBracket } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import useWindowSize from "@/hooks/useWindowSize"
@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <>
       <main className="absolute font-space-grotesk">
-        <HeaderContainer className="w-screen h-24 border-b-[1px] border-gray-900">
+        <HeaderContainer className="w-screen h-24 border-b-[1px] border-gray-900 text-gray-600">
           <HeaderItem items={3} className="justify-center">
             {windowSize.width! >= 650 ?
               <img src="/radio.png" width="200" />
@@ -38,9 +38,9 @@ export default function Header() {
           <HeaderItem items={3} className="justify-between">
             {windowSize.width! >= 600 ?
               <HeaderItem items={2} className="justify-center p-5 border-l-[1px] border-gray-900">
-                <FontAwesomeIcon icon={faGithubSquare} className="p-1 cursor-pointer hover:text-violet-400" />
-                <FontAwesomeIcon icon={faDiscord} className="p-1 cursor-pointer hover:text-violet-400" />
-                <FontAwesomeIcon icon={faGlobe} className="p-1 cursor-pointer hover:text-violet-400" />
+                <FontAwesomeIcon icon={faGithubSquare} className="p-1 cursor-pointer text-white hover:text-violet-400" />
+                <FontAwesomeIcon icon={faDiscord} className="p-1 cursor-pointer text-white hover:text-violet-400" />
+                <FontAwesomeIcon icon={faGlobe} className="p-1 cursor-pointer text-white hover:text-violet-400" />
               </HeaderItem>
               : null}
 
@@ -53,7 +53,7 @@ export default function Header() {
                     window.location.href = window.location.origin + "/guilds"
                   }} />
 
-                  <HeaderText className="p-2">LOGOUT</HeaderText>
+                  <FontAwesomeIcon icon={faRightFromBracket} className="p-1 cursor-pointer text-gray-600 hover:text-violet-400" />
                 </HeaderItem>
               }
             </HeaderItem>
