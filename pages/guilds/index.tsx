@@ -1,15 +1,25 @@
 import Header from "@/components/header/Header";
+import Loading from "@/components/Loading";
+
+import GuildItem from "@/components/guild/GuildItem";
+import GuildMenu from "@/components/guild/GuildMenu";
+
+import useGetGuilds from "@/hooks/useGetGuilds";
 
 export default function Guilds() {
+  const { guilds, loading } = useGetGuilds();
+
+  if (loading || guilds == null) {
+    return <Loading />
+  }
+
   return (
     <>
       <Header />
-      <main className="flex justify-center">
-        <div className="flex justify-center flex-col h-screen items-center">
-          <h1 className="font-space-grotesk pb-6 text-4xl">Not Implemented</h1>
-          <img src="/fire.gif" className="w-1/3" />
-        </div>
-      </main>
+      <GuildMenu>
+        {guilds.mutualGuilds!.map(guild => <GuildItem guild={guild} key={guild.id} />)}
+        {guilds.individualGuilds!.map(guild => <GuildItem guild={guild} key={guild.id} />)}
+      </GuildMenu >
     </>
   )
 }
