@@ -28,7 +28,6 @@ export default async function fetcher(endpoint: string, body: any): Promise<Requ
         const response: ResponseInit = error.response;
 
         if (response == null) {
-            window.location.href = window.location.origin + "/error"
             return {};
         }
 
